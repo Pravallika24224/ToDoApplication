@@ -47,8 +47,9 @@ const ToDoForm = () => {
         </div>
         <button
           onClick={clickHandler}
-          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none font-medium rounded-md text-sm px-5 py-2.5 me-2 mt-4 mb-2 mx-auto"
+          className="text-white bg-gray-800 hover:bg-blue-900 focus:outline-none font-medium rounded-md text-sm px-5 py-2.5 me-2 mt-4 mb-2 mx-auto disabled:opacity-50"
           type="submit"
+          disabled={(formData?.title?.length > 0) ? false : true}
         >Add todo</button>
       </div>
       {todos.length > 0 ?

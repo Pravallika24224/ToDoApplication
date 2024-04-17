@@ -13,17 +13,17 @@ const ToDoList = ({ todos }) => {
     // setTodos(newArr)
   }
 
-  const handleDelete = (todo) => {
+  const handleDelete = async (todo) => {
     axios.delete(`http://localhost:3000/todo/delete/${todo._id}`)
       .then(res => {
         console.log(res)
       })
   }
   return (
-    <div>
-      {todos?.map((todo, index) => {
+    // <div>
+      todos?.map((todo, index) => {
         return (
-          <div key={todo.id} className="flex flex-row bg-slate-200 h-14 items-center mb-2">
+          <div key={todo._id} className="flex flex-row bg-slate-200 h-14 items-center mb-2">
             <input type="checkbox" id={todo.id} checked={todo.isDone} value={todo.title} onChange={handleChange(todo, index)} className="w-1/12 h-1/2" />
             <div className="flex-none w-10/12">
               {todo.isDone === true ?
@@ -42,8 +42,8 @@ const ToDoList = ({ todos }) => {
             </div>
           </div>
         )
-      })}
-    </div>
+      })
+    // </div>
   )
 }
 

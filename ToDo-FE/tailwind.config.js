@@ -7,6 +7,9 @@ export default {
   theme: {
     extend: {},
   },
+  varients: {
+    opacity: ({ after }) => after(['disabled'])
+  },
   plugins: [],
 }
 

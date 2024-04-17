@@ -46,7 +46,6 @@ router.put('/update/:id', async (req, res) => {
 
 router.delete('/delete/:id', async (req, res) => {
   const todoId = req.params.id
-  console.log(todoId, typeof(todoId))
   const deletingItem = await Todo.findById(todoId)
   if(deletingItem) {
     await Todo.deleteOne({_id:todoId})
