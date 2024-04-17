@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import ToDoList from './ToDoList'
-
-let nextId = 0
 
 const ToDoForm = () => {
   const [formData, setFormData] = useState({})
@@ -9,13 +8,22 @@ const ToDoForm = () => {
 
   const handleChange = (e) => {
     e.preventDefault()
-    setFormData((formData) => ({ ...formData, [e.target.name]: e.target.value }))
+    setFormData((formData) => ({ ...formData, [e.target.name]: e.target.value, isDone: false }))
   }
   const clickHandler = (e) => {
     e.preventDefault();
-    setTodos([...todos, { ...formData, id: nextId++, isDone: false }])
+    axios.post('http://localhost:3000/todo/newTodo', formData)
+    .then(res => {
+      setTodos([...todos, res?.data?.newTodo])
+    })
     setFormData({})
   }
+  useEffect(() => {
+    axios.get('http://localhost:3000/todo/list')
+    .then(res => {
+      setTodos(res.data.todoList)
+    })
+  }, [todos])
   return (
     <div>
       <div className='rounded-lg bg-white text-start p-2 h-fit px-4'>
@@ -45,7 +53,7 @@ const ToDoForm = () => {
       </div>
       {todos.length > 0 ?
         <div className='rounded-lg bg-white text-start p-2 mt-4 h-fit px-4'>
-          <ToDoList todos={todos} setTodos={setTodos}/>
+          <ToDoList todos={todos}/>
         </div> : ""}
     </div>
   )
